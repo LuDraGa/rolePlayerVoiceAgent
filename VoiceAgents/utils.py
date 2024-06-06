@@ -25,11 +25,11 @@ def get_config(model=model, api_key=api_key, new_gpt_config={}):
     return config_list, gpt_config
 
 
-def select_audio_file():
+def select_audio_file(message):
     # Create a Tkinter root window (it will remain hidden)
     # Open a file dialog and allow the user to select an audio file
     file_path = tk.filedialog.askopenfilename(
-        title="Select an audio file",
+        title=f"Select an audio file :  {message}",
         filetypes=[("Audio Files", "*.mp3 *.wav *.ogg *.flac")]
     )
 
@@ -39,4 +39,3 @@ def select_audio_file():
     else:
         print("No file selected.")
         return None
-    
