@@ -19,7 +19,6 @@ if __name__ == "__main__":
         llm_config=gpt4_config,
         max_consecutive_auto_reply=2,
         base_voice=base_voice,
-        target_voice=target_voice
     )
 
     batman = SpeakingAgent(

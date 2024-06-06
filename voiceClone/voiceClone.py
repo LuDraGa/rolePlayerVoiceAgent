@@ -3,10 +3,9 @@ import torch
 from openvoice import se_extractor
 from openvoice.api import ToneColorConverter
 from openai import OpenAI
-from pydub import AudioSegment  
-from pydub.playback import play 
-from pydub.effects import speedup
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class VoiceChanger:
     def __init__(self, base_speaker_audio_examples, target_speaker_audio_examples):
@@ -62,16 +61,7 @@ class VoiceChanger:
         if self.target_se is None:
             self.target_se = self.get_tone_color_embedding(self.target_speaker_audio_file_path)
 
-        print(text)
-        print(output_file_path)
         self.base_speaker_tts(text, self.base_speaker_output_path)
-        print(self.base_speaker_output_path)
         self.convert_tone(self.base_speaker_output_path, output_file_path)
-        # self.play_audio_file(output_file_path)
         return output_file_path
-
-    # def play_audio_file(self, audio_file_path):
-    #     audio = AudioSegment.from_file(audio_file_path)
-    #     final = speedup(audio, playback_speed=1.25)   
-    #     play(final)
 

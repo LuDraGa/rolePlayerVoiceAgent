@@ -1,9 +1,10 @@
 import os
 import tkinter as tk
 from tkinter import filedialog
+from dotenv import load_dotenv
 
-
-api_key = os.environ.get("OPEN_AI_KEY")
+load_dotenv()
+api_key = os.environ.get("OPENAI_API_KEY")
 model = "gpt-4o"
 
 def get_config(model=model, api_key=api_key, new_gpt_config={}):
