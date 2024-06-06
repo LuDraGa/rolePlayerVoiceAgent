@@ -1,36 +1,59 @@
 # VoiceCloneSpeakerAgent
 
 ## SpeakerAgent
-Made a voice agent with autogen AssistantAgent.
+Made a voice agent with autogen AssistantAgent
 
 ## VoiceCloner
-Made a voice cloner with openvoice.
+Made a voice cloner with openvoice
 
-## Flask Server
-Made a flask server for the voice cloner (openvoice requires python 3.9, autogen requires python 3.11).
+## Flask Server Setup
+Made a flask server for the voice cloner (openvoice requires Python 3.9, autogen requires Python 3.11)
 
+## Combined Setup
 Used them together to make:
-- **SpeakerAgent**: Can clone any particular voice given an audio clip.
-  - **Input required**: Clean voice recording of target speaker. [>30s preferred]
+- A speakerAgent which can clone any particular voice given an audio clip. 
+    - Input required: Clean voice recording of target speaker. [>30s preferred]
+
+### Installations
+- VoiceClone
+  - `conda create -n voiceclone python=3.9`
+  - `conda activate voiceclone`
+  - `git clone git@github.com:myshell-ai/OpenVoice.git`
+  - `cd OpenVoice`
+  - `pip install -e .`
+- VoiceAgent
+  - `conda create -n voiceagent python=3.11`
+  - `conda activate voiceagent`
+  - `pip install pyautogen`
 
 ### How to Run
-- `/Users/abhiroopprasad/code/voiceClone` [SERVER: localhost:5000] `python3.9`
-  - `conda activate openvoice`
-  - `python3 main.py`
-- `/Users/abhiroopprasad/code/VoiceAgents` `python3.11`
-  - `conda activate autogenstudio`
-  - `python3 main.py`
+- `/voiceClone` [SERVER: localhost:5000] using Python 3.9
+    - `cd voiceClone`
+    - `conda activate voiceclone`
+    - `python3 main.py`
+- `/VoiceAgents` using Python 3.11
+    - `cd voiceAgents`
+    - `conda activate voiceagent`
+    - `python3 main.py`
 
-### Pending
+## Pending
 - Currently can take and work with only one base voice
-  - The base voice is also used for TTS. [As we are currently using OpenAI API for TTS, which takes only a set of default inputs, the base voice will also use an audio clip of one of the same set of voices available]
+    - The base voice is also used for TTS. [As we are currently using OpenAI API for TTS, which takes only a set of default inputs, the base voice will also use an audio clip of one of the same set of voices available]
 
-## Flask Server Endpoints
+## Flask Server methods
 
 ### init
-- **Request**:
-  ```json
-  {
-      "base_voice": "base_speaker_audio",
-      "target_voice": "target_speaker_audio"
-  }
+- **Request:**
+    - `base_voice`: base_speaker_audio <mp3 file of base tts voice>
+    - `target_voice`: target_speaker_audio <mp3 file of target voice mapping>
+- **Response:**
+    - `instance_id`: instance_id
+
+### speak
+Given text speaks in the target voice
+- **Request:**
+    - `instance_id`: instance_id of the bot with our voice
+    - `text`: text to speak
+    - `output_file_path`: to save the speech audio
+- **Response:**
+    - `output_file_path`
