@@ -5,4 +5,8 @@
 *.pkl
 
 .DS_Store
-*.env
+*.env*
+*.se.pth
+
+voiceClone/OpenVoice
+voiceClone/processed
