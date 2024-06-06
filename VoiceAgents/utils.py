@@ -1,5 +1,6 @@
 import os
 import tkinter as tk
+from tkinter import filedialog
 
 
 api_key = os.environ.get("OPEN_AI_KEY")
@@ -25,9 +26,6 @@ def get_config(model=model, api_key=api_key, new_gpt_config={}):
 
 def select_audio_file():
     # Create a Tkinter root window (it will remain hidden)
-    root = tk.Tk()
-    root.withdraw()
-
     # Open a file dialog and allow the user to select an audio file
     file_path = tk.filedialog.askopenfilename(
         title="Select an audio file",
@@ -36,6 +34,8 @@ def select_audio_file():
 
     # Check if a file was selected
     if file_path:
-        print(f"Selected file: {file_path}")
+        return file_path
     else:
         print("No file selected.")
+        return None
+    

@@ -49,7 +49,9 @@ class SpeakingAgent(AssistantAgent):
         response = super().generate_reply(messages, sender)
 
         if response:
-            audio_output_file_path = self.text2speech(response, "./output.mp3")
+            relative_output_path = "./output.mp3"
+            absolute_output_path = os.path.abspath(relative_output_path)
+            audio_output_file_path = self.text2speech(response, absolute_output_path)
             self.play_audio_file(audio_output_file_path)
         return response
 
@@ -57,7 +59,7 @@ class SpeakingAgent(AssistantAgent):
         # Play the audio file using pydub  
         audio = AudioSegment.from_file(file_path)
         final = speedup(audio, playback_speed=1.25)   
-        play(final)
+        play(audio)
 
     def text2speech(self, text, output_file_path):
         if self.instance_id:

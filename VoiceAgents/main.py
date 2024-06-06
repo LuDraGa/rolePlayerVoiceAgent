@@ -6,7 +6,7 @@ from autogen import UserProxyAgent
 
 if __name__ == "__main__":
     config_list, gpt4_config = get_config()
-    base_voice = "/Users/abhiroopprasad/code/voiceClone/VoiceSnippets/alloy.mp3"
+    base_voice = select_audio_file()
     target_voice = select_audio_file()
 
     superman = SpeakingAgent(
