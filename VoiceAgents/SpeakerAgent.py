@@ -6,7 +6,7 @@ from pydub.playback import play
 from pydub.effects import speedup
 from autogen import AssistantAgent, Agent
 from typing import Union, Dict, Optional, List
-from VoiceChangerClient import initialize_voice_changer, use_voice_changer
+from .VoiceChangerClient import initialize_voice_changer, use_voice_changer
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -45,8 +45,8 @@ class SpeakingAgent(AssistantAgent):
         # otherwise, the print log would be super long!
         super().send(message, recipient, request_reply, silent=False)
 
-    def generate_reply(self, messages, sender):
-        response = super().generate_reply(messages, sender)
+    def generate_reply(self, **kwargs):
+        response = super().generate_reply(**kwargs)
 
         if response:
             relative_output_path = "./output.mp3"
