@@ -6,17 +6,18 @@ from VoiceAgents.utils import get_config
 
 config_list, gpt4_config = get_config()
 
-def createSpeakingAgent(name, system_message, target_voice, base_voice="/Users/abhiroopprasad/code/voiceCloneAgent/voiceClone/VoiceSnippets/alloy.mp3"):
+def createSpeakingAgent(name, system_message, target_voice, base_voice="/Users/abhiroopprasad/code/voiceCloneAgent/voiceClone/VoiceSnippets/alloy.mp3", speak=True):
     agent = SpeakingAgent(
         name=name,
         system_message=system_message,
         voice="alloy",
         llm_config=gpt4_config,
-        # max_consecutive_auto_reply=2,
-        base_voice=base_voice,
+        max_consecutive_auto_reply=2,
+        base_voice=base_voice if speak else None,
         target_voice=target_voice
     )
-    print(agent.instance_id)
+    if not speak:
+        agent.mute()
     return agent
 
 def createAssistantAgent(name, system_message, max_consecutive_auto_reply=2):

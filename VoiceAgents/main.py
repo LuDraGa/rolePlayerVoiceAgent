@@ -6,21 +6,24 @@ from autogen import UserProxyAgent
 
 if __name__ == "__main__":
     config_list, gpt4_config = get_config()
-    base_voice = select_audio_file()
-    target_voice = select_audio_file()
-
+    base_voice = select_audio_file("For base voice")
+    
+    
+    target_voice_1 = select_audio_file("For superman")
     superman = SpeakingAgent(
         name="Superman",
         system_message="""
         Pretend to be Superman. Do not break character under any circumstances.
         Be consise(keep words to 20-30)
         """,
-        voice="echo",
+        voice="alloy",
         llm_config=gpt4_config,
         max_consecutive_auto_reply=2,
         base_voice=base_voice,
+        target_voice=target_voice_1
     )
 
+    target_voice_2 = select_audio_file("For batman")
     batman = SpeakingAgent(
         name="Batman",
         system_message="""
@@ -31,15 +34,7 @@ if __name__ == "__main__":
         llm_config=gpt4_config,
         max_consecutive_auto_reply=2,
         base_voice=base_voice,
-        target_voice=target_voice
-    )
-
-    user_proxy = UserProxyAgent(
-        name="Admin",
-        system_message="A human admin.",
-        code_execution_config=False,
-        llm_config=gpt4_config,
-        human_input_mode="ALWAYS"
+        target_voice=target_voice_2
     )
 
     # Ask the question with an image

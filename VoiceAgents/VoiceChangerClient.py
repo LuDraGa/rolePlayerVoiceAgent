@@ -16,6 +16,7 @@ def use_voice_changer(instance_id, text, output_path):
     if response.status_code == 200:
         return response.json()['result']
     else:
+        print(response)
         print("Error calling speak:", response.json())
         return None
 

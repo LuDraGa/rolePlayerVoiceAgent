@@ -13,6 +13,7 @@ load_dotenv()
 
 class SpeakingAgent(AssistantAgent):
     def __init__(self, name, llm_config: dict, **kwargs):
+        self.silent = False
         self._voice = kwargs.pop('voice', None) or "alloy"
         self.base_voice_audioFile = kwargs.pop('base_voice', None)
         self.target_voice_audioFile = kwargs.pop('target_voice', None)
@@ -33,6 +34,10 @@ class SpeakingAgent(AssistantAgent):
          
         # self.agent = 
         # self.register_reply([Agent, None], SpeakingAgent_autogen.speak)
+    def mute(self):
+        self.silent = True
+    def unmute(self):
+        self.silent = False
 
     def send(
         self,
@@ -48,7 +53,7 @@ class SpeakingAgent(AssistantAgent):
     def generate_reply(self, **kwargs):
         response = super().generate_reply(**kwargs)
 
-        if response:
+        if response and not self.silent:
             relative_output_path = "./output.mp3"
             absolute_output_path = os.path.abspath(relative_output_path)
             audio_output_file_path = self.text2speech(response, absolute_output_path)
